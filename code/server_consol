@@ -1,0 +1,20 @@
+Vm1 and vm2:
+sudo apt update
+sudo apt install apache2 -y
+echo "Application from VM1" | sudo tee /var/www/html/index.html
+sudo systemctl enable --now apache2
+sudo tar -czf vm1-apache.tar.gz /var/www/html
+scp vm1-apache.tar.gz username@MAIN_VM_IP:~/
+
+Vm1:
+sudo apt update
+sudo apt install apache2 -y
+mkdir -p ~/vm1 ~/vm2
+sudo tar -xzf ~/
+vm1-apache.tar.gz -C ~/vm1
+sudo tar -xzf ~/vm2-apache.tar.gz -C ~/vm2
+
+Main:
+sudo apt update
+sudo apt install htop -y
+htop

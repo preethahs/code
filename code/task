@@ -1,0 +1,42 @@
+# Step 1: Create an Ubuntu VM and clone it using VirtualBox (Full Clone)
+
+# Step 2: Update Ubuntu
+sudo apt update
+
+# Step 3: Install Cron
+sudo apt install cron -y
+
+# Step 4: Enable and start Cron
+sudo systemctl enable --now cron
+sudo systemctl status cron 
+
+# Step 5: Create the script
+nano script.sh
+
+#!/bin/bash
+echo "Hello"
+
+
+# Step 6: Save the file using Ctrl+O, Enter, Ctrl+X
+
+# Step 7: Make the script executable
+chmod +x script.sh
+./script.sh
+
+#check path
+pwd
+#use the path in next command
+
+# Step 8: Open the Cron scheduler
+crontab -e
+* * * * * /home/ubuntu/script.sh >> /home/ubuntu/output.log
+
+# Step 9: Save using Ctrl+O, Enter, Ctrl+X
+
+# Step 10: Check Cron status
+systemctl start cron
+systemctl enable cron
+systemctl status cron
+
+# Step 11: Wait one minute and check the output
+cat output.log
